@@ -178,12 +178,10 @@ def call() {
                             //     throw new hudson.AbortException('The Artifactory Token refresh failed')
                             // }
 
-                            sh'''
-                                echo Inside the if Block
-                                echo ${currentAccessToken}
-                                echo ${currentRefreshToken}
-                                echo terminating pipeline job successfully
-                            '''
+                                echo "Inside the if Block"
+                                echo "Current Access Token: ${currentAccessToken}"
+                                echo "Current Refresh Token: ${currentRefreshToken}"
+                                echo "terminating pipeline job successfully"
                 
                         } else {
                             throw new hudson.AbortException('This job must supply parameters for access_token_id and refresh_token_id')
