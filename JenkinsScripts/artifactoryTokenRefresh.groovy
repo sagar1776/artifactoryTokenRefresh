@@ -151,6 +151,7 @@ def call() {
         parameters {
             string(name: 'access_token_id', defaultValue: 'artifactory_access_token', description: 'The Jenkins credential ID storing the access token to Artifactory')
             string(name: 'refresh_token_id', defaultValue: 'artifactory_refresh_token', description: 'The Jenkins credential ID storing the refresh token to Artifactory')
+            booleanParam(name: 'verbose', defaultValue: true, description: 'Check for enabling logging')
         }
 
         stages {
