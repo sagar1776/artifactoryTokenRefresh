@@ -158,14 +158,17 @@ def call() {
             stage ('Token Refresh') {
                 steps {
                     script {
+
+                        println "Starting the Token refresh stage"
+
                         if (access_token_id?.trim() && refresh_token_id?.trim()) {
 
                             def access_token_id = params.access_token_id
                             def refresh_token_id = params.refresh_token_id
                 
                             // // Get the current tokens from Jenkins Credential Store
-                            // def currentAccessToken = getJenkinsCredentialSecret(access_token_id)
-                            // def currentRefreshToken = getJenkinsCredentialSecret(refresh_token_id)
+                            def currentAccessToken = getJenkinsCredentialSecret(access_token_id)
+                            def currentRefreshToken = getJenkinsCredentialSecret(refresh_token_id)
                 
                             // // Refresh the Artifactory Token
                             // def (newAccessToken, newRefreshToken) = refreshArtifactoryToken(currentAccessToken, currentRefreshToken)
@@ -178,10 +181,10 @@ def call() {
                             //     throw new hudson.AbortException('The Artifactory Token refresh failed')
                             // }
 
-                                echo "Inside the if Block"
-                                // echo "Current Access Token: ${currentAccessToken}"
-                                // echo "Current Refresh Token: ${currentRefreshToken}"
-                                echo "terminating pipeline job successfully"
+                                println "Inside the if Block"
+                                println "Current Access Token: ${currentAccessToken}"
+                                println "Current Refresh Token: ${currentRefreshToken}"
+                                println "terminating pipeline job successfully"
                 
                         } else {
                             throw new hudson.AbortException('This job must supply parameters for access_token_id and refresh_token_id')
