@@ -160,10 +160,10 @@ pipeline{
 
                     println "Starting the Token refresh stage"
 
-                    if (access_token_id?.trim() && refresh_token_id?.trim()) {
+                    def access_token_id = params.access_token_id
+                    def refresh_token_id = params.refresh_token_id
 
-                        def access_token_id = params.access_token_id
-                        def refresh_token_id = params.refresh_token_id
+                    if (access_token_id?.trim() && refresh_token_id?.trim()) {
             
                         // // Get the current tokens from Jenkins Credential Store
                         def currentAccessToken = getJenkinsCredentialSecret(access_token_id)
