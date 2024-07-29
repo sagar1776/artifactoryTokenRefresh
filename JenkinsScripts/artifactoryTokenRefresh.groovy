@@ -96,37 +96,6 @@ def updateJenkinsCredential(id, token) {
         throw new hudson.AbortException('Failed to update Jenkins secret for ' + cred.id)
     }
 }
- 
-// withTimeout(time: 15, unit: 'MINUTES') {
- 
-//     def access_token_id = params.access_token_id
-//     def refresh_token_id = params.refresh_token_id
- 
-//     stage 'Token Refresh', {
- 
-//         // if the parameters are set
-//         if (access_token_id?.trim() && refresh_token_id?.trim()) {
- 
-//             // Get the current tokens from Jenkins Credential Store
-//             def currentAccessToken = getJenkinsCredentialSecret(access_token_id)
-//             def currentRefreshToken = getJenkinsCredentialSecret(refresh_token_id)
- 
-//             // Refresh the Artifactory Token
-//             def (newAccessToken, newRefreshToken) = refreshArtifactoryToken(currentAccessToken, currentRefreshToken)
- 
-//             // If set update the Jenkins Credential Store
-//             if (newAccessToken && newRefreshToken) {
-//                 updateJenkinsCredential(access_token_id, newAccessToken)
-//                 updateJenkinsCredential(refresh_token_id, newRefreshToken)
-//             } else {
-//                 throw new hudson.AbortException('The Artifactory Token refresh failed')
-//             }
- 
-//         } else {
-//             throw new hudson.AbortException('This job must supply parameters for access_token_id and refresh_token_id')
-//         }
-//     }
-// }
 
 pipeline{
 
@@ -164,26 +133,20 @@ pipeline{
                     def refresh_token_id = params.refresh_token_id
 
                     if (access_token_id?.trim() && refresh_token_id?.trim()) {
-            
-                        // // Get the current tokens from Jenkins Credential Store
+                        // Get the current tokens from Jenkins Credential Store
                         def currentAccessToken = getJenkinsCredentialSecret(access_token_id)
                         def currentRefreshToken = getJenkinsCredentialSecret(refresh_token_id)
             
-                        // // Refresh the Artifactory Token
-                        // def (newAccessToken, newRefreshToken) = refreshArtifactoryToken(currentAccessToken, currentRefreshToken)
+                        // Refresh the Artifactory Token
+                        def (newAccessToken, newRefreshToken) = refreshArtifactoryToken(currentAccessToken, currentRefreshToken)
             
-                        // // If set update the Jenkins Credential Store
-                        // if (newAccessToken && newRefreshToken) {
-                        //     updateJenkinsCredential(access_token_id, newAccessToken)
-                        //     updateJenkinsCredential(refresh_token_id, newRefreshToken)
-                        // } else {
-                        //     throw new hudson.AbortException('The Artifactory Token refresh failed')
-                        // }
-
-                            println "Inside the if Block"
-                            println "Current Access Token: ${currentAccessToken}"
-                            println "Current Refresh Token: ${currentRefreshToken}"
-                            println "terminating pipeline job successfully"
+                        // If set update the Jenkins Credential Store
+                        if (newAccessToken && newRefreshToken) {
+                            updateJenkinsCredential(access_token_id, newAccessToken)
+                            updateJenkinsCredential(refresh_token_id, newRefreshToken)
+                        } else {
+                            throw new hudson.AbortException('The Artifactory Token refresh failed')
+                        }
             
                     } else {
                         throw new hudson.AbortException('This job must supply parameters for access_token_id and refresh_token_id')
