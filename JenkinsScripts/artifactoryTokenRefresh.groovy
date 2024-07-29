@@ -163,9 +163,9 @@ def call() {
                             def access_token_id = params.access_token_id
                             def refresh_token_id = params.refresh_token_id
                 
-                            // Get the current tokens from Jenkins Credential Store
-                            def currentAccessToken = getJenkinsCredentialSecret(access_token_id)
-                            def currentRefreshToken = getJenkinsCredentialSecret(refresh_token_id)
+                            // // Get the current tokens from Jenkins Credential Store
+                            // def currentAccessToken = getJenkinsCredentialSecret(access_token_id)
+                            // def currentRefreshToken = getJenkinsCredentialSecret(refresh_token_id)
                 
                             // // Refresh the Artifactory Token
                             // def (newAccessToken, newRefreshToken) = refreshArtifactoryToken(currentAccessToken, currentRefreshToken)
@@ -179,8 +179,8 @@ def call() {
                             // }
 
                                 echo "Inside the if Block"
-                                echo "Current Access Token: ${currentAccessToken}"
-                                echo "Current Refresh Token: ${currentRefreshToken}"
+                                // echo "Current Access Token: ${currentAccessToken}"
+                                // echo "Current Refresh Token: ${currentRefreshToken}"
                                 echo "terminating pipeline job successfully"
                 
                         } else {
