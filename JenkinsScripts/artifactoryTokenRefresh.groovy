@@ -103,6 +103,10 @@ pipeline{
         timeout(time: 15, unit: 'MINUTES')
     }
 
+    triggers {
+        cron('H 0 1 * *') // Run at midnight on the 1st of every month
+    }
+
     environment {
         HTTP_PROXY  = 'http://www-proxy-hqdc.us.oracle.com:80'
         HTTPS_PROXY = 'http://www-proxy-hqdc.us.oracle.com:80'
@@ -119,7 +123,7 @@ pipeline{
     parameters {
         string(name: 'access_token_id', defaultValue: 'artifactory_access_token', description: 'The Jenkins credential ID storing the access token to Artifactory')
         string(name: 'refresh_token_id', defaultValue: 'artifactory_refresh_token', description: 'The Jenkins credential ID storing the refresh token to Artifactory')
-        booleanParam(name: 'verbose', defaultValue: true, description: 'Check for enabling logging')
+        booleanParam(name: 'verbose', defaultValue: false, description: 'Check for enabling logging')
     }
 
     stages {
